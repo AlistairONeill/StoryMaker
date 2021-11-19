@@ -1,16 +1,12 @@
-package uk.co.alistaironeill.storymaker.parser
+package uk.co.alistaironeill.storymaker.language.dictionary
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import com.ubertob.kondortools.expectFailure
-import com.ubertob.kondortools.expectSuccess
+import com.natpryce.hamkrest.isEmpty
 import org.junit.jupiter.api.Test
 import uk.co.alistaironeill.storymaker.language.Keyword
 import uk.co.alistaironeill.storymaker.language.LocationName
 import uk.co.alistaironeill.storymaker.language.RecognizedWord
-import uk.co.alistaironeill.storymaker.language.Dictionary.LookUpError
-import uk.co.alistaironeill.storymaker.language.Dictionary.LookUpError.UnknownWord
-import uk.co.alistaironeill.storymaker.language.RealDictionary
 
 class RealDictionaryTest {
     private val house = LocationName("house")
@@ -22,14 +18,8 @@ class RealDictionaryTest {
 
     private infix fun String.parsesAs(word: RecognizedWord) =
         assertThat(
-            dictionary.lookUp(this).expectSuccess(),
+            dictionary.lookUp(this).single(),
             equalTo(word)
-        )
-
-    private infix fun String.errorsAs(error: LookUpError) =
-        assertThat(
-            dictionary.lookUp(this).expectFailure(),
-            equalTo(error)
         )
 
     @Test
@@ -45,7 +35,9 @@ class RealDictionaryTest {
     }
 
     @Test
-    fun `returns error if unrecognised`() {
-        "kasdaghfuka" errorsAs UnknownWord
-    }
+    fun `returns empty set if unrecognised`() =
+        assertThat(
+            dictionary.lookUp("kajsdkajf"),
+            isEmpty
+        )
 }
