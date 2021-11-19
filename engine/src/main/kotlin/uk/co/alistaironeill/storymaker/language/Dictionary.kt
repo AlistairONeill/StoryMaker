@@ -1,8 +1,7 @@
-package uk.co.alistaironeill.storymaker.parser
+package uk.co.alistaironeill.storymaker.language
 
 import com.ubertob.kondor.outcome.Outcome
 import com.ubertob.kondor.outcome.OutcomeError
-import uk.co.alistaironeill.storymaker.language.RecognizedWord
 
 interface Dictionary {
     fun lookUp(input: String): Outcome<LookUpError, RecognizedWord>

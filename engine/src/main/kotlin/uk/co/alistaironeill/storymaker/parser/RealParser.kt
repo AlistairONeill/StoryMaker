@@ -3,6 +3,7 @@ package uk.co.alistaironeill.storymaker.parser
 import com.ubertob.kondor.outcome.*
 import uk.co.alistaironeill.storymaker.action.Action
 import uk.co.alistaironeill.storymaker.action.Move
+import uk.co.alistaironeill.storymaker.language.Dictionary
 import uk.co.alistaironeill.storymaker.language.Keyword.GO
 import uk.co.alistaironeill.storymaker.language.LocationName
 import uk.co.alistaironeill.storymaker.language.RecognizedWord

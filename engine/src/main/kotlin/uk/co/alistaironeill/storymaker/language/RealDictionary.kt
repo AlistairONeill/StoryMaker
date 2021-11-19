@@ -1,13 +1,10 @@
-package uk.co.alistaironeill.storymaker.parser
+package uk.co.alistaironeill.storymaker.language
 
 import com.ubertob.kondor.outcome.Outcome
 import com.ubertob.kondor.outcome.asFailure
 import com.ubertob.kondor.outcome.asSuccess
-import uk.co.alistaironeill.storymaker.language.Keyword
-import uk.co.alistaironeill.storymaker.language.LocationName
-import uk.co.alistaironeill.storymaker.language.RecognizedWord
-import uk.co.alistaironeill.storymaker.parser.Dictionary.LookUpError
-import uk.co.alistaironeill.storymaker.parser.Dictionary.LookUpError.UnknownWord
+import uk.co.alistaironeill.storymaker.language.Dictionary.LookUpError
+import uk.co.alistaironeill.storymaker.language.Dictionary.LookUpError.UnknownWord
 
 class RealDictionary(
     locations: Set<LocationName> = emptySet()

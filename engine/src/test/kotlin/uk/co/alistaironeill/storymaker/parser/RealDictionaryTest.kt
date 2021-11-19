@@ -8,8 +8,9 @@ import org.junit.jupiter.api.Test
 import uk.co.alistaironeill.storymaker.language.Keyword
 import uk.co.alistaironeill.storymaker.language.LocationName
 import uk.co.alistaironeill.storymaker.language.RecognizedWord
-import uk.co.alistaironeill.storymaker.parser.Dictionary.LookUpError
-import uk.co.alistaironeill.storymaker.parser.Dictionary.LookUpError.UnknownWord
+import uk.co.alistaironeill.storymaker.language.Dictionary.LookUpError
+import uk.co.alistaironeill.storymaker.language.Dictionary.LookUpError.UnknownWord
+import uk.co.alistaironeill.storymaker.language.RealDictionary
 
 class RealDictionaryTest {
     private val house = LocationName("house")

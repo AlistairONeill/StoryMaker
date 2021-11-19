@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import uk.co.alistaironeill.storymaker.action.Action
 import uk.co.alistaironeill.storymaker.action.Move
 import uk.co.alistaironeill.storymaker.language.LocationName
+import uk.co.alistaironeill.storymaker.language.RealDictionary
 import uk.co.alistaironeill.storymaker.parser.Parser.ParseError.NoInput
 import uk.co.alistaironeill.storymaker.parser.Parser.ParseError.UnrecognizedInput
 
