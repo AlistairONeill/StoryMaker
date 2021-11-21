@@ -7,13 +7,18 @@ import org.junit.jupiter.api.Test
 import uk.co.alistaironeill.storymaker.action.Action
 import uk.co.alistaironeill.storymaker.action.Move
 import uk.co.alistaironeill.storymaker.language.LocationName
+import uk.co.alistaironeill.storymaker.language.dictionary.CompositeDictionary
+import uk.co.alistaironeill.storymaker.language.dictionary.DefaultDictionary
 import uk.co.alistaironeill.storymaker.language.dictionary.RealDictionary
 
 class RealParserTest {
     private val house = LocationName("house")
 
-    private val dictionary = RealDictionary(
-        locations = setOf(house)
+    private val dictionary = CompositeDictionary(
+        DefaultDictionary,
+        RealDictionary(
+            locations = setOf(house)
+        )
     )
 
     private val parser = RealParser(dictionary)

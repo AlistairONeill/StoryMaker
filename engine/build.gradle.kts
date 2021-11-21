@@ -22,6 +22,8 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation("com.natpryce", "hamkrest", hamkrestVersion)
     testImplementation("com.ubertob.kondor", "kondor-tools", kondorVersion)
+
+    testFixturesImplementation("com.natpryce", "hamkrest", hamkrestVersion)
 }
 
 tasks.test {
