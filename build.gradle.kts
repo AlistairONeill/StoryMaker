@@ -17,6 +17,7 @@ val kondorVersion : String by project
 dependencies {
     implementation("com.ubertob.kondor", "kondor-core", kondorVersion)
     implementation("com.ubertob.kondor", "kondor-outcome", kondorVersion)
+    implementation(project(":engine"))
 
     testImplementation(kotlin("test"))
     testImplementation("com.natpryce", "hamkrest", hamkrestVersion)
