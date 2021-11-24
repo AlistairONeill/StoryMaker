@@ -1,3 +1,5 @@
 package uk.co.alistaironeill.storymaker.action
 
-interface Action
+interface Action {
+    fun desc(): String
+}

@@ -24,6 +24,8 @@ dependencies {
     testImplementation("com.ubertob.kondor", "kondor-tools", kondorVersion)
 
     testFixturesImplementation("com.natpryce", "hamkrest", hamkrestVersion)
+    testFixturesImplementation("com.ubertob.kondor", "kondor-core", kondorVersion)
+    testFixturesImplementation("com.ubertob.kondor", "kondor-outcome", kondorVersion)
 }
 
 tasks.test {
