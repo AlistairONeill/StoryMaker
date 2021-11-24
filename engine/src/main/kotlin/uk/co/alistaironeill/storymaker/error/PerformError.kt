@@ -12,9 +12,15 @@ sealed interface PerformError: OutcomeError {
         override val msg = "Input could mean multiple things: [${actions.joinToString(", ") { it.desc() }}]"
     }
 
-    data class CatastrophicError(override val msg: String): OutcomeError, PerformError
-
     data class InvalidAction(val action: Action): PerformError {
         override val msg = "You can't \"${action.desc()}\""
+    }
+
+    sealed interface Terminating: PerformError
+
+    data class CatastrophicError(override val msg: String): Terminating
+
+    data class GameWin(val epilogue: String): Terminating {
+        override val msg = "You have won! $epilogue"
     }
 }

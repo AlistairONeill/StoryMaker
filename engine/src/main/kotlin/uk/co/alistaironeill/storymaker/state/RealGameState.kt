@@ -36,7 +36,7 @@ class RealGameState(private val gameDefinition: GameDefinition): GameState {
                 destination == locationName -> "You are already there, silly".asSuccess()
                 allowed.contains(destination) -> {
                     locationName = destination
-                    location.transform(SceneDefinition::description)
+                    location.bind { it.onEntry() }
                 }
                 else -> InvalidAction(Move(destination)).asFailure()
             }
