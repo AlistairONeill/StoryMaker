@@ -1,5 +1,5 @@
 package uk.co.alistaironeill.storymaker.action
 
-interface Action {
+sealed interface Action {
     fun desc(): String
 }

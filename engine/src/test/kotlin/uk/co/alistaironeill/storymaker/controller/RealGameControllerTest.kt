@@ -7,8 +7,8 @@ import com.ubertob.kondortools.expectFailure
 import com.ubertob.kondortools.expectSuccess
 import org.junit.jupiter.api.Test
 import uk.co.alistaironeill.storymaker.action.Move
-import uk.co.alistaironeill.storymaker.controller.GameController.PerformError.Ambiguity
-import uk.co.alistaironeill.storymaker.controller.GameController.PerformError.Unparseable
+import uk.co.alistaironeill.storymaker.error.PerformError.Ambiguity
+import uk.co.alistaironeill.storymaker.error.PerformError.Unparseable
 import uk.co.alistaironeill.storymaker.language.Keyword.GO
 import uk.co.alistaironeill.storymaker.language.LocationName
 import uk.co.alistaironeill.storymaker.language.dictionary.StubDictionary
@@ -34,7 +34,12 @@ class RealGameControllerTest {
             isEmpty
         )
 
-        gameState.dictionary = StubDictionary("go" to setOf(GO), "house" to setOf(house))
+        gameState.setDictionary(
+            StubDictionary(
+                "go" to setOf(GO),
+                "house" to setOf(house)
+            )
+        )
 
         assertThat(
             controller.perform("go house")
@@ -51,17 +56,24 @@ class RealGameControllerTest {
 
     @Test
     fun `returns error when there is ambiguity`() {
-        gameState.dictionary = StubDictionary("go" to setOf(GO), "building" to setOf(house, church))
+        gameState.setDictionary(
+            StubDictionary(
+                "go" to setOf(GO),
+                "building" to setOf(house, church)
+            )
+        )
 
         assertThat(
             controller.perform("go building")
                 .expectFailure(),
-            equalTo(Ambiguity(
-                setOf(
-                    Move(house),
-                    Move(church)
+            equalTo(
+                Ambiguity(
+                    setOf(
+                        Move(house),
+                        Move(church)
+                    )
                 )
-            ))
+            )
         )
     }
 }
