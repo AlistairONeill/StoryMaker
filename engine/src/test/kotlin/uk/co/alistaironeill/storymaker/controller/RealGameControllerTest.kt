@@ -3,11 +3,12 @@ package uk.co.alistaironeill.storymaker.controller
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.isEmpty
-import com.ubertob.kondortools.expectSuccess
 import org.junit.jupiter.api.Test
 import uk.co.alistaironeill.storymaker.action.Move
-import uk.co.alistaironeill.storymaker.error.PerformError.Ambiguity
-import uk.co.alistaironeill.storymaker.error.PerformError.Unparseable
+import uk.co.alistaironeill.storymaker.consequence.NoOpConsequence
+import uk.co.alistaironeill.storymaker.error.ParseError
+import uk.co.alistaironeill.storymaker.error.ParseError.Ambiguity
+import uk.co.alistaironeill.storymaker.error.ParseError.Unparseable
 import uk.co.alistaironeill.storymaker.language.Keyword.GO
 import uk.co.alistaironeill.storymaker.language.LocationName
 import uk.co.alistaironeill.storymaker.language.dictionary.StubDictionary
@@ -23,9 +24,8 @@ class RealGameControllerTest {
     @Test
     fun `uses the gameState's dictionary to parse commands`() {
         assertThat(
-            controller.perform("go house")
-                .expectSuccess(),
-            equalTo(Unparseable("go house").msg)
+            controller.perform("go house"),
+            equalTo(listOf(Unparseable.msg))
         )
 
         assertThat(
@@ -40,9 +40,8 @@ class RealGameControllerTest {
             )
 
         assertThat(
-            controller.perform("go house")
-                .expectSuccess(),
-            equalTo("action performed")
+            controller.perform("go house"),
+            equalTo(emptyList())
         )
 
         assertThat(
@@ -61,15 +60,16 @@ class RealGameControllerTest {
             )
 
         assertThat(
-            controller.perform("go building")
-                .expectSuccess(),
+            controller.perform("go building"),
             equalTo(
-                Ambiguity(
-                    setOf(
-                        Move(house),
-                        Move(church)
-                    )
-                ).msg
+                listOf(
+                    Ambiguity(
+                        setOf(
+                            Move(house),
+                            Move(church)
+                        )
+                    ).msg
+                )
             )
         )
     }

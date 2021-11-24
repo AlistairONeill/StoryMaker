@@ -1,23 +1,18 @@
 package uk.co.alistaironeill.storymaker.state
 
-import com.ubertob.kondor.outcome.Outcome
-import com.ubertob.kondor.outcome.asFailure
-import com.ubertob.kondor.outcome.asSuccess
 import uk.co.alistaironeill.storymaker.action.Action
-import uk.co.alistaironeill.storymaker.error.PerformError
-import uk.co.alistaironeill.storymaker.language.dictionary.Dictionary
+import uk.co.alistaironeill.storymaker.consequence.Consequence
+import uk.co.alistaironeill.storymaker.consequence.NoOpConsequence
+import uk.co.alistaironeill.storymaker.language.LocationName
 import uk.co.alistaironeill.storymaker.language.dictionary.StubDictionary
 
 class StubGameState: GameState {
     override var dictionary = StubDictionary()
 
-    var error: PerformError? = null
     val performedActions = mutableListOf<Action>()
-    var returnValue = "action performed"
+    var returnValue : Consequence = NoOpConsequence
 
-    override fun perform(action: Action): Outcome<PerformError, String> =
-        error?.asFailure()
-            ?: returnValue.asSuccess().also {
-                performedActions.add(action)
-            }
+    override fun perform(action: Action): Consequence = returnValue.also { performedActions.add(action) }
+
+    override fun move(destination: LocationName) = NoOpConsequence
 }

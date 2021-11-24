@@ -2,10 +2,10 @@ package uk.co.alistaironeill.storymaker
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
-import com.ubertob.kondortools.expectFailure
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
+import uk.co.alistaironeill.storymaker.controller.GameOverException
 import uk.co.alistaironeill.storymaker.controller.RealGameController
-import uk.co.alistaironeill.storymaker.error.PerformError.GameWin
 import uk.co.alistaironeill.storymaker.game.TestGame
 import uk.co.alistaironeill.storymaker.game.TestGame.epilogue
 import uk.co.alistaironeill.storymaker.state.RealGameState
@@ -23,9 +23,10 @@ class RealStoryTest {
         controller.perform("go house")
         controller.perform("go garden")
         assertThat(
-            controller.perform("GO POnD").expectFailure(),
-            equalTo(GameWin(epilogue))
+            assertThrows<GameOverException> {
+                controller.perform("GO POnD")
+            }.epilogue,
+            equalTo(listOf(epilogue))
         )
-
     }
 }

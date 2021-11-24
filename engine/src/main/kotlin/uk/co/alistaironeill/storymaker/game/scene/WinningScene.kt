@@ -1,7 +1,8 @@
 package uk.co.alistaironeill.storymaker.game.scene
 
-import com.ubertob.kondor.outcome.asFailure
-import uk.co.alistaironeill.storymaker.error.PerformError.GameWin
+import uk.co.alistaironeill.storymaker.consequence.CompositeConsequence
+import uk.co.alistaironeill.storymaker.consequence.DescriptionConsequence
+import uk.co.alistaironeill.storymaker.consequence.GameOverConsequence
 import uk.co.alistaironeill.storymaker.language.LocationName
 
 data class WinningSceneDefinition(
@@ -9,5 +10,9 @@ data class WinningSceneDefinition(
 ): SceneDefinition {
     override val destinations = emptySet<LocationName>()
     override val dictionary get() = throw RuntimeException("The game is over!")
-    override fun onEntry() = GameWin(epilogue).asFailure()
+    override fun onEntry() = CompositeConsequence(
+        DescriptionConsequence(epilogue),
+        GameOverConsequence
+    )
+    override fun move(destination: LocationName) = throw RuntimeException("The game is over!")
 }

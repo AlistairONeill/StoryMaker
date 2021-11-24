@@ -2,6 +2,7 @@ package uk.co.alistaironeill.storymaker.parser
 
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
+import com.ubertob.kondortools.expectSuccess
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import uk.co.alistaironeill.storymaker.action.Action
@@ -25,7 +26,7 @@ class RealParserTest {
 
     private infix fun String.parsesAs(action: Action) =
         assertThat(
-            parser.parse(this).single(),
+            parser.parse(this).expectSuccess(),
             equalTo(action)
         )
 
