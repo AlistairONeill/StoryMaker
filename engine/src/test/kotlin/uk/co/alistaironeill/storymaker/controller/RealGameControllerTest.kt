@@ -3,7 +3,6 @@ package uk.co.alistaironeill.storymaker.controller
 import com.natpryce.hamkrest.assertion.assertThat
 import com.natpryce.hamkrest.equalTo
 import com.natpryce.hamkrest.isEmpty
-import com.ubertob.kondortools.expectFailure
 import com.ubertob.kondortools.expectSuccess
 import org.junit.jupiter.api.Test
 import uk.co.alistaironeill.storymaker.action.Move
@@ -25,8 +24,8 @@ class RealGameControllerTest {
     fun `uses the gameState's dictionary to parse commands`() {
         assertThat(
             controller.perform("go house")
-                .expectFailure(),
-            equalTo(Unparseable("go house"))
+                .expectSuccess(),
+            equalTo(Unparseable("go house").msg)
         )
 
         assertThat(
@@ -65,14 +64,14 @@ class RealGameControllerTest {
 
         assertThat(
             controller.perform("go building")
-                .expectFailure(),
+                .expectSuccess(),
             equalTo(
                 Ambiguity(
                     setOf(
                         Move(house),
                         Move(church)
                     )
-                )
+                ).msg
             )
         )
     }

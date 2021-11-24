@@ -5,5 +5,5 @@ import uk.co.alistaironeill.storymaker.error.PerformError
 
 
 interface GameController {
-    fun perform(input: String): Outcome<PerformError, String>
+    fun perform(input: String): Outcome<PerformError.Terminating, String>
 }
