@@ -10,7 +10,7 @@ data class BasicSceneDefinition(
     private val description: String,
     override val destinations: Set<LocationName>
 ): SceneDefinition {
-    override val dictionary = RealDictionary(destinations).asSuccess()
+    override val dictionary = RealDictionary(destinations)
 
     override fun onEntry(): Outcome<PerformError.Terminating, String> = description.asSuccess()
 }

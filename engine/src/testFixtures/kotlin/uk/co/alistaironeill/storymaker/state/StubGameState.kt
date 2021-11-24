@@ -9,9 +9,7 @@ import uk.co.alistaironeill.storymaker.language.dictionary.Dictionary
 import uk.co.alistaironeill.storymaker.language.dictionary.StubDictionary
 
 class StubGameState: GameState {
-    private var _dictionary: Dictionary = StubDictionary()
-    fun setDictionary(dictionary: Dictionary) { _dictionary = dictionary }
-    override val dictionary get() = _dictionary.asSuccess()
+    override var dictionary = StubDictionary()
 
     var error: PerformError? = null
     val performedActions = mutableListOf<Action>()

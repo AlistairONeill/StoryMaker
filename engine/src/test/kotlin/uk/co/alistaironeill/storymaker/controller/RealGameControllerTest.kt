@@ -33,12 +33,11 @@ class RealGameControllerTest {
             isEmpty
         )
 
-        gameState.setDictionary(
+        gameState.dictionary =
             StubDictionary(
                 "go" to setOf(GO),
                 "house" to setOf(house)
             )
-        )
 
         assertThat(
             controller.perform("go house")
@@ -55,12 +54,11 @@ class RealGameControllerTest {
 
     @Test
     fun `returns error when there is ambiguity`() {
-        gameState.setDictionary(
+        gameState.dictionary =
             StubDictionary(
                 "go" to setOf(GO),
                 "building" to setOf(house, church)
             )
-        )
 
         assertThat(
             controller.perform("go building")

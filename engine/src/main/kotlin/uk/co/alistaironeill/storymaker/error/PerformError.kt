@@ -18,8 +18,6 @@ sealed interface PerformError: OutcomeError {
 
     sealed interface Terminating: PerformError
 
-    data class CatastrophicError(override val msg: String): Terminating
-
     data class GameWin(val epilogue: String): Terminating {
         override val msg = "You have won! $epilogue"
     }

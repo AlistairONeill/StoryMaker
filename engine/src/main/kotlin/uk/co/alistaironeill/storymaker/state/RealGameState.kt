@@ -13,16 +13,16 @@ import uk.co.alistaironeill.storymaker.game.scene.SceneDefinition
 import uk.co.alistaironeill.storymaker.language.LocationName
 import uk.co.alistaironeill.storymaker.language.dictionary.CompositeDictionary
 
-class RealGameState(private val gameDefinition: GameDefinition): GameState {
+class RealGameState(private val gameDefinition: GameDefinition) : GameState {
     private var locationName: LocationName = gameDefinition.start
     private val location get() = gameDefinition[locationName]
 
-    override val dictionary get() = location.bind {
-        CompositeDictionary(
-            gameDefinition.dictionary,
-            it.dictionary
-        )
-    }
+    override val dictionary
+        get() =
+            CompositeDictionary(
+                gameDefinition.dictionary,
+                location.dictionary
+            )
 
     override fun perform(action: Action): Outcome<PerformError, String> =
         when (action) {
@@ -30,15 +30,13 @@ class RealGameState(private val gameDefinition: GameDefinition): GameState {
         }
 
     private fun move(destination: LocationName): Outcome<PerformError, String> =
-        location.transform(SceneDefinition::destinations)
-            .bind { allowed ->
-            when {
-                destination == locationName -> "You are already there, silly".asSuccess()
-                allowed.contains(destination) -> {
-                    locationName = destination
-                    location.bind { it.onEntry() }
-                }
-                else -> InvalidAction(Move(destination)).asFailure()
+        when {
+            destination == locationName -> "You are already there, silly".asSuccess()
+            location.destinations.contains(destination) -> {
+                locationName = destination
+                location.onEntry()
             }
+            else -> InvalidAction(Move(destination)).asFailure()
         }
+
 }
