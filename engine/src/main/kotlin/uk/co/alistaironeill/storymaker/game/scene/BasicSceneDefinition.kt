@@ -9,7 +9,7 @@ import uk.co.alistaironeill.storymaker.language.dictionary.RealDictionary
 
 data class BasicSceneDefinition(
     private val description: String,
-    override val destinations: Set<LocationName>
+    private val destinations: Set<LocationName>
 ): SceneDefinition {
     override val dictionary = RealDictionary(destinations)
 

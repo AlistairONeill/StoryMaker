@@ -8,7 +8,6 @@ import uk.co.alistaironeill.storymaker.language.LocationName
 data class WinningSceneDefinition(
     val epilogue: String
 ): SceneDefinition {
-    override val destinations = emptySet<LocationName>()
     override val dictionary get() = throw RuntimeException("The game is over!")
     override fun onEntry() = CompositeConsequence(
         DescriptionConsequence(epilogue),
