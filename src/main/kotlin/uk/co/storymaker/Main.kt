@@ -4,8 +4,8 @@ import uk.co.alistaironeill.storymaker.controller.GameOverException
 
 fun main() {
     val gameController = DemoGame
-
     println("Welcome to the game")
+    gameController.start().forEach(::println)
     try {
         while (true) {
             val input = readLine() ?: break

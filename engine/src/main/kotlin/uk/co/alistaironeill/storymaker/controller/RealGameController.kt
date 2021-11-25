@@ -1,6 +1,8 @@
 package uk.co.alistaironeill.storymaker.controller
 
 import com.ubertob.kondor.outcome.*
+import uk.co.alistaironeill.storymaker.action.Action
+import uk.co.alistaironeill.storymaker.action.Start
 import uk.co.alistaironeill.storymaker.consequence.*
 import uk.co.alistaironeill.storymaker.error.ParseError
 import uk.co.alistaironeill.storymaker.error.ParseError.*
@@ -12,13 +14,17 @@ import uk.co.alistaironeill.storymaker.state.GameState
 class RealGameController(
     private val gameState: GameState
 ) : GameController {
+    override fun start() = perform(Start)
+
     override fun perform(input: String): List<String> =
         RealParser(dictionary)
             .parse(input)
-            .transform(gameState::perform)
-            .transform(::resolveConsequence)
+            .transform(::perform)
             .recover(::resolveParseError)
 
+    private fun perform(action: Action): List<String> =
+        gameState.perform(action)
+            .run(::resolveConsequence)
 
     private val dictionary
         get() = CompositeDictionary(

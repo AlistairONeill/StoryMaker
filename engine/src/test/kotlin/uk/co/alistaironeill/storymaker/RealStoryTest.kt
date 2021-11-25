@@ -19,6 +19,7 @@ class RealStoryTest {
 
     @Test
     fun `can complete the game`() {
+        controller.start()
         controller.perform("go garden")
         controller.perform("go house")
         controller.perform("go garden")
